@@ -7,5 +7,5 @@ require './server'
 
 use Rack::Reloader, 0
 
-run Rack::URLMap.new("/" => BunnyStall::Server.new, "/api" => NabaztagHackKit::Server.new)
+run Rack::URLMap.new("/" => NabaztagHackKit::Server.new, "/bunny" => BunnyStall::Server.new, )
 
