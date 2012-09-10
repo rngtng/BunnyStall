@@ -1,8 +1,10 @@
 # A sample Gemfile
-source "https://rubygems.org"
+source "http://rubygems.org"
 
-gem "nabaztag_hack_kit"
 gem "thin"
+gem "nabaztag_hack_kit", {
+  :path => "/Users/tobi/Sites/ruby/NabaztagHackKit"
+}
 
 group :development do
   gem "heroku"
