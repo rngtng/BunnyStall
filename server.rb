@@ -30,7 +30,7 @@ module BunnyStall
 
     on "ping" do |data, request|
       send_nabaztag begin
-       if payment(GraphiteStats::KEY, params[:p])
+       if payment(GraphiteStats::KEY, params[:password])
           NabaztagHackKit::Message::Helper::wink.merge(
             NabaztagHackKit::Message::Helper::circle
           ).merge({

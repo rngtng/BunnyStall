@@ -17,3 +17,6 @@ tmp
 _yardoc
 doc/
 .rvmrc
+bytecode/cfg.mtl
+
+.mtlrc
