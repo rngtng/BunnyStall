@@ -1,9 +1,10 @@
 require 'sinatra'
 
+require 'nabaztag_hack_kit/server'
 module BunnyStall
-  class Server < Sinatra::Base
-    get '/hi' do
-      "Hello World!"
+  class Server < NabaztagHackKit::Server
+
+    on :ping do
     end
   end
 end
