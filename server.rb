@@ -21,9 +21,6 @@ module BunnyStall
     on "button-pressed" do |data, request|
       send_nabaztag({
           PLAY_STREAM => "money.mp3",
-      #   LED_L1   => [0],
-      #   LED_L2   => [0],
-      #   LED_L3   => [0],
           LED_L4   => [0,0,0,0,100],
       })
     end

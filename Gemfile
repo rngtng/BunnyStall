@@ -2,7 +2,7 @@
 source "http://rubygems.org"
 
 gem "thin"
-gem "nabaztag_hack_kit", "0.1.0.alpha1"
+gem "nabaztag_hack_kit", "0.1.0.alpha2"
 
 group :development do
   gem "heroku"
