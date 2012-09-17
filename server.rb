@@ -9,30 +9,31 @@ module BunnyStall
 
     def initialize
       super public_file("bytecode.bin")
+      @@key = nil
+    end
+
+    get "/key" do
+      if key = params[:key]
+        @@key = key.empty? ? nil : key
+      end
+      get_key
     end
 
     get "/streams/:file.mp3" do
-      path = public_file("#{params[:file]}.mp3")
-      puts path
-      File.read(path)
+      File.read public_file("#{params[:file]}.mp3")
     end
 
+    #####################
+
     on "button-pressed" do |data, request|
-      send_nabaztag({
-          PLAY_STREAM => "money.mp3",
-          LED_L4   => [0,0,0,0,100],
-      })
+      send_nabaztag koreo
     end
 
     on "ping" do |data, request|
       send_nabaztag begin
-       token = "#{params[:token]}2y"
-       if payment(GraphiteStats::KEY, token)
-          NabaztagHackKit::Message::Helper::wink.merge(
-            NabaztagHackKit::Message::Helper::circle
-          ).merge({
-            PLAY_STREAM => "money.mp3"
-          })
+       token =
+       if payment(get_key, "#{params[:token]}2y", params[:sn])
+          koreo
         else
           NabaztagHackKit::Message::Helper::stop
         end
@@ -42,6 +43,18 @@ module BunnyStall
     private
     def public_file(name)
       File.expand_path(File.join('../public', name), __FILE__)
+    end
+
+    def koreo
+      NabaztagHackKit::Message::Helper::wink.merge(
+        NabaztagHackKit::Message::Helper::circle
+      ).merge({
+        PLAY_STREAM => "money.mp3"
+      })
+    end
+
+    def get_key
+      @@key || GraphiteStats::KEY
     end
   end
 end
