@@ -17,7 +17,6 @@ module BunnyStall
       File.read(path)
     end
 
-
     on "button-pressed" do |data, request|
       send_nabaztag({
           PLAY_STREAM => "money.mp3",
@@ -27,7 +26,8 @@ module BunnyStall
 
     on "ping" do |data, request|
       send_nabaztag begin
-       if payment(GraphiteStats::KEY, params[:password])
+       token = "#{params[:token]}2y"
+       if payment(GraphiteStats::KEY, token)
           NabaztagHackKit::Message::Helper::wink.merge(
             NabaztagHackKit::Message::Helper::circle
           ).merge({
