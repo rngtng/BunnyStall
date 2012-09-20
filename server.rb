@@ -19,20 +19,16 @@ module BunnyStall
       get_key
     end
 
-    get "/streams/:file.mp3" do
-      File.read public_file("#{params[:file]}.mp3")
-    end
-
     #####################
 
-    on "button-pressed" do |data, request|
-      send_nabaztag koreo
+    on "button-pressed" do |duration, request|
+      send_nabaztag (duration.to_i > 1000) ? koreo : NabaztagHackKit::Message::Helper::wink
     end
 
     on "ping" do |data, request|
       send_nabaztag begin
-       token =
-       if payment(get_key, "#{params[:token]}2y", params[:sn])
+       token = params[:token]
+       if payment(get_key, "#{params[:token]}2y", params[:bunnyid])
           koreo
         else
           NabaztagHackKit::Message::Helper::stop
@@ -42,7 +38,7 @@ module BunnyStall
 
     private
     def public_file(name)
-      File.expand_path(File.join('../public', name), __FILE__)
+      File.expand_path(File.join('..', 'public', name), __FILE__)
     end
 
     def koreo

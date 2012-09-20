@@ -5,20 +5,20 @@ GEM
     daemons (1.1.9)
     eventmachine (1.0.0)
     excon (0.16.2)
-    foreman (0.57.0)
+    foreman (0.59.0)
       thor (>= 0.13.6)
-    heroku (2.31.2)
-      heroku-api (~> 0.3.4)
+    heroku (2.31.4)
+      heroku-api (~> 0.3.5)
       launchy (>= 0.3.2)
       netrc (~> 0.7.7)
       rest-client (~> 1.6.1)
       rubyzip
-    heroku-api (0.3.4)
+    heroku-api (0.3.5)
       excon (~> 0.16.1)
     launchy (2.1.2)
       addressable (~> 2.3)
     mime-types (1.19)
-    nabaztag_hack_kit (0.1.0.alpha2)
+    nabaztag_hack_kit (0.1.0.alpha3)
       sinatra
     netrc (0.7.7)
     rack (1.4.1)
@@ -44,5 +44,5 @@ PLATFORMS
 DEPENDENCIES
   foreman
   heroku
-  nabaztag_hack_kit (= 0.1.0.alpha2)
+  nabaztag_hack_kit (= 0.1.0.alpha3)
   thin
