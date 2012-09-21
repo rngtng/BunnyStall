@@ -18,7 +18,7 @@ GEM
     launchy (2.1.2)
       addressable (~> 2.3)
     mime-types (1.19)
-    nabaztag_hack_kit (0.1.0.alpha3)
+    nabaztag_hack_kit (0.1.0.alpha4)
       sinatra
     netrc (0.7.7)
     rack (1.4.1)
@@ -44,5 +44,5 @@ PLATFORMS
 DEPENDENCIES
   foreman
   heroku
-  nabaztag_hack_kit (= 0.1.0.alpha3)
+  nabaztag_hack_kit (= 0.1.0.alpha4)
   thin

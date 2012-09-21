@@ -8,7 +8,7 @@ module BunnyStall
     include GraphiteStats
 
     def initialize
-      super public_file("bytecode.bin")
+      super(:base_file => __FILE__)
       @@key = nil
     end
 
@@ -37,10 +37,6 @@ module BunnyStall
     end
 
     private
-    def public_file(name)
-      File.expand_path(File.join('..', 'public', name), __FILE__)
-    end
-
     def koreo
       NabaztagHackKit::Message::Helper::wink.merge(
         NabaztagHackKit::Message::Helper::circle
