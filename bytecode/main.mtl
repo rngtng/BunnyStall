@@ -126,7 +126,8 @@ fun evalTrame res=
         // play stream
         else if code == 63 then
         (
-          // playbackStream val
+          //playbackStream val
+          wavstarthttp (streamUrl val) nil;
           0
         )
       )
