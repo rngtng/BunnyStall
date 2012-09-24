@@ -21,6 +21,12 @@ module BunnyStall
 
     #####################
 
+    on "init" do |data, request|
+      send_nabaztag(NabaztagHackKit::Message::Helper::circle(3).merge({
+        PLAY_LOAD => "money.mp3",
+      }))
+    end
+
     on "button-pressed" do |duration, request|
       send_nabaztag (duration.to_i > 1000) ? koreo : NabaztagHackKit::Message::Helper::wink
     end
@@ -32,16 +38,17 @@ module BunnyStall
           koreo
         else
           NabaztagHackKit::Message::Helper::stop
+          # koreo
         end
       end
     end
 
     private
     def koreo
-      NabaztagHackKit::Message::Helper::wink.merge(
-        NabaztagHackKit::Message::Helper::circle
+      NabaztagHackKit::Message::Helper::wink(1,4,3).merge(
+        NabaztagHackKit::Message::Helper::circle(17)
       ).merge({
-        PLAY_STREAM => "money.mp3"
+        PLAY_START => 1
       })
     end
 

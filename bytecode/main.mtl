@@ -13,7 +13,7 @@ proto evalTrame 1;;
 #include "src/lib/dns"
 #include "src/lib/http"
 #include "src/lib/dhcp"
-#include "src/lib/wav"
+// #include "src/lib/wav"
 #include "src/lib/wifi"
 
 #include "lib/data_helper"
@@ -33,6 +33,7 @@ fun _cbHttp http res=
   evalTrame res;
   0;;
 
+#include "lib/init"
 #include "lib/buffer"
 //#include "lib/ping"
 #include "cfg"
@@ -108,26 +109,23 @@ fun evalTrame res=
         // play start
         else if code == 60 then
         (
-          // playbackStart
-          0
+          playbackStart
         )
         // play stop
         else if code == 61 then
         (
-          //  playbackStop
-          0
+          playbackStop
         )
         // play load
         else if code == 62 then
         (
-          // playbackLoad val
-          0
+          playbackLoad val
         )
         // play stream
         else if code == 63 then
         (
           //playbackStream val
-          wavstarthttp (streamUrl val) nil;
+          //wavstarthttp (streamUrl val) nil;
           0
         )
       )
@@ -137,6 +135,8 @@ fun evalTrame res=
 //###############################################
 //-------------------- LOOP ---------------------
 fun loop=
+  initCheck;
+
   wifiRun;
   wifiCheck;
 
@@ -148,9 +148,6 @@ fun loop=
   earRead 1;
 
   pingCheck;
-  wavtime;
-
-  recordingCheck;
 0;;
 
 //###############################################
