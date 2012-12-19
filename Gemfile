@@ -8,6 +8,5 @@ gem "nabaztag_hack_kit", "0.1.0.alpha7"
 # }
 
 group :development do
-  gem "heroku"
   gem "foreman"
 end
