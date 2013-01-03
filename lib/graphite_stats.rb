@@ -4,7 +4,7 @@ require 'json'
 
 module GraphiteStats
   URL  = "https://graphite.s-cloud.net/render/?rawData=true&format=json&target=%s&from=-1minutes"
-  KEY  = "stats_counts.payments.buckster-test.orders.apple_subscription_orders.shipped"
+  KEY  = "stats_counts.payments.buckster.orders.apple_subscription_orders.shipped"
   USER = "admin"
 
   def get_stats(key, password)
@@ -15,9 +15,11 @@ module GraphiteStats
   end
 
   def datapoints(stats)
-    JSON.parse(stats).first["datapoints"].map do |point, time|
-      point.to_i > 0 ? time : nil
-    end.compact
+    JSON.parse(stats).map do |data|
+      Array(data["datapoints"]).map do |point, time|
+        point.to_i > 0 ? time : nil
+      end
+    end.flatten.compact
   end
 
   def get_last_datapoint(key, password)

@@ -2,11 +2,11 @@
 
 $LOAD_PATH.unshift ::File.expand_path(::File.dirname(__FILE__) + '/lib')
 require './server'
-require 'nabaztag_hack_kit/redirect'
+require 'dynamic_reverse_proxy'
 
 $stdout.sync = true
 
 use Rack::Reloader, 0
-use NabaztagHackKit::Redirect
+use Rack::DynamicReverseProxy
 
 run BunnyStall::Server.new
