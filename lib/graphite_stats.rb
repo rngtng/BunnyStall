@@ -3,12 +3,13 @@ require 'openssl'
 require 'json'
 
 module GraphiteStats
-  URL  = "https://graphite.s-cloud.net/render/?rawData=true&format=json&target=%s&from=-1minutes"
-  KEY  = "stats_counts.payments.buckster.orders.apple_subscription_orders.shipped"
+  URL  = "https://graphite.s-cloud.net/render/?rawData=true&format=json&%s&from=%s"
+  KEY  = "sumSeries(payments.stats.plans.creator-pro*)"
   USER = "admin"
 
-  def get_stats(key, password)
-    open(URL % key, {
+  def get_stats(keys, password, time='-10minutes')
+    keys = Array(keys).map { |key| "target=#{key}" }.join("&")
+    open(URL % [keys, time], {
       :http_basic_authentication => [USER, password],
       :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
     }).read
@@ -16,9 +17,8 @@ module GraphiteStats
 
   def datapoints(stats)
     JSON.parse(stats).map do |data|
-      Array(data["datapoints"]).map do |point, time|
-        point.to_i > 0 ? time : nil
-      end
+      dp1, dp2 = Array(data["datapoints"])
+      (dp2[0].to_i - dp1[0].to_i) > 0 ? dp2[1] : nil
     end.flatten.compact
   end
 

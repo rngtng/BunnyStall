@@ -46,9 +46,9 @@ module BunnyStall
     end
 
     on "request" do |_, data, request|
-      if (Time.now - @@last_update) > 5
+      if (Time.now - @@last_update) > 30 # seconds
         if payment(get_key, "#{data[:token]}2y", nil)
-          Bunny.all.each do |bunny|
+          NabaztagHackKit::Bunny.all.each do |bunny|
             bunny.queue_commands koreo
           end
         end
