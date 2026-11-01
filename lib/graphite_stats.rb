@@ -3,9 +3,17 @@ require 'openssl'
 require 'json'
 
 module GraphiteStats
-  URL  = "https://graphite.s-cloud.net/render/?rawData=true&format=json&%s&from=%s"
-  KEY  = "sumSeries(payments.stats.plans.creator-pro*)"
-  USER = "admin"
+  URL  = "https://payments-dashboard.s-cloud.net/render/?rawData=true&format=json&%s&from=%s"
+  KEY  = "sumSeries(stats_counts.payments.buckster.orders.creator-subscription-*.successful)"
+  USER = "paymentsdashboard"
+
+  def payment(key, password, sn = nil)
+    if password && pt = get_last_datapoint(key, password)
+      done_datapoints << pt
+    end
+  end
+
+  private
 
   def get_stats(keys, password, time='-10minutes')
     keys = Array(keys).map { |key| "target=#{key}" }.join("&")
@@ -30,11 +38,5 @@ module GraphiteStats
 
   def done_datapoints
     @@done_datapoints ||= []
-  end
-
-  def payment(key, password, sn = nil)
-    if password && pt = get_last_datapoint(key, password)
-      done_datapoints << pt
-    end
   end
 end
